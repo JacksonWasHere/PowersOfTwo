@@ -1,0 +1,16 @@
+start
+Reached: 0
+2^16 is valid
+Reached: 5000
+Reached: 3125000
+Reached: 6250000
+Reached: 9375000
+Reached: 10000
+Reached: 12500000
+Reached: 15625000
+Reached: 18750000
+Reached: 21875000
+Reached: 15000
+Reached: 20000
+Reached: 25000
+Reached: 30000
