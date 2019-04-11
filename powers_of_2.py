@@ -1,24 +1,28 @@
 from datetime import datetime
+from multiprocessing import Pool
+import math
 def pow_count(num):
-    count = 0
-    list = {'1','2','4','8'}
-    for c in str(num):
-        if c in list:
+    list = {1,2,4,8}
+    digits = int(math.log(num)/math.log(10)+1)
+    for i in range(digits):
+        if num%10 in list:
             return 1
+        num//=10
     return 0
 
-def find_powers():
-    t=datetime.now()
-    last = t
-    k=584_000
-    num=2**k
-    while k<10_000_000:
-        num*=16
-        count=pow_count(num)
-        if not count:
-            print("2^"+str(k)+"="+str(num))
-        if(k%1000==0):
-            print("At k="+str(k)+"\tTime = "+str(datetime.now()-t)+"\tdTime = "+str(datetime.now()-last))
-            last = datetime.now()
-        k+=4
-find_powers()
+def power(num):
+    num*=4
+    if(num%5000==0):
+        print(num,file=open("output.txt","a"))
+        print(num)
+    if not pow_count(2**num):
+        print("2^"+str(num)+" is valid",file=open("output.txt","a"))
+        print("FOUND")
+        return 1
+    return 0
+
+if __name__ == '__main__':
+    with Pool(96) as p:
+        print("start",file=open("output.txt","w"))
+        nums = p.map(power, range(100000000))
+        print("done",file=open("output.txt","a"))
